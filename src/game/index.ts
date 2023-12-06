@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import {LoadScene} from "./scenes/LoadScene"
 import {MenuScene} from "./scenes/MenuScene"
+import {PlayScene} from "./scenes/PlayScene"
 
 export const getGame = () =>
   new Phaser.Game({
@@ -9,12 +10,13 @@ export const getGame = () =>
     width: 672,
     height: 768,
     // backgroundColor: 'white',
-    // physics: {
-    //   default: 'arcade',
-    //   arcade: {
-    //     gravity: { y: 0 }
-    //   }
-    // },
+    physics: {
+      default: 'arcade',
+      arcade: {
+        debug: true,
+        gravity: { y: 0 }
+      }
+    },
     render: {
       pixelArt: true
     },
@@ -23,7 +25,7 @@ export const getGame = () =>
       parent: 'app'
     },
     // scene: [new VueScene()]
-      scene: [LoadScene, MenuScene]
+      scene: [LoadScene, MenuScene, PlayScene]
   })
 
 // export class VueScene extends Phaser.Scene {

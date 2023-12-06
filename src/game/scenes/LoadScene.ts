@@ -1,14 +1,9 @@
 import {CST} from "../CST"
-import player from '@/assets/player.png'
-import meme from '@/assets/meme.png'
-import raider1 from '@/assets/raider1.png'
-import raider2 from '@/assets/raider2.png'
-import raider3 from '@/assets/raider3.png'
-import logo from '@/assets/crlogo.png'
-import pt1 from '@/assets/1pt.png'
-import pt2 from '@/assets/2pt.png'
-import pt3 from '@/assets/3pt.png'
-import play from '@/assets/play.png'
+import patblast from "@/assets/sprites/patblast.png"
+import rattack1 from "@/assets/sprites/rattack1.png"
+import rattack2 from "@/assets/sprites/rattack2.png"
+import rattack3 from "@/assets/sprites/rattack3.png"
+
 
 export class LoadScene extends Phaser.Scene{
     constructor(){
@@ -19,34 +14,52 @@ export class LoadScene extends Phaser.Scene{
     init(){
 
     }
+
+    loadImage(){
+        this.load.setPath("./src/assets/image");
+
+        for (let prop in CST.IMAGE){
+            this.load.image(CST.IMAGE[prop], CST.IMAGE[prop]);
+        }
+    }
+
+    loadSprites32x16(frameConfig?: Phaser.Types.Loader.FileTypes.ImageFrameConfig){
+        this.load.setPath("./src/assets/sprites");
+
+        for (let prop in CST.SPRITES32x16){
+            this.load.spritesheet(CST.SPRITES32x16[prop], CST.SPRITES32x16[prop], frameConfig);
+        }
+    }
+
+    loadSprites32x12(frameConfig?: Phaser.Types.Loader.FileTypes.ImageFrameConfig){
+        this.load.setPath("./src/assets/sprites");
+
+        for (let prop in CST.SPRITES32x12){
+            this.load.spritesheet(CST.SPRITES32X12[prop], CST.SPRITES32X12[prop], frameConfig);
+        }
+        this.load.setPath("./");
+    }
+
     preload(){
-        this.load.image("meme", meme)
-
-        this.load.spritesheet("player", player, {
+        this.loadImage();
+        this.loadSprites32x16({
+            frameHeight: 16,
+            frameWidth: 32
+        });
+        this.loadSprites32x12({
+            frameHeight: 12,
+            frameWidth: 32
+        });
+        // this.load.image("meme", meme)
+        this.load.spritesheet("patblast", patblast, {
             frameHeight: 32,
-            frameWidth: 64
-        })
-
-        this.load.spritesheet("raider1", raider1, {
-            frameHeight: 16,
             frameWidth: 32
         })
-
-        this.load.spritesheet("raider2", raider2, {
-            frameHeight: 16,
-            frameWidth: 32
-        })
-
-        this.load.spritesheet("raider3", raider3, {
-            frameHeight: 16,
-            frameWidth: 32
-        })
-
-        this.load.image("logo", logo)
-        this.load.image("1pt", pt1)
-        this.load.image("2pt", pt2)
-        this.load.image("3pt", pt3)
-        this.load.image("play", play)
+        // this.load.image("logo", logo)
+        // this.load.image("1pt", pt1)
+        // this.load.image("2pt", pt2)
+        // this.load.image("3pt", pt3)
+        // this.load.image("play", play)
 
         let loadingBar = this.add.graphics({
             fillStyle:{
@@ -54,20 +67,18 @@ export class LoadScene extends Phaser.Scene{
             }
         })
 
-        // for(let i = 0; i < 100; i++){
-        //     this.load.spritesheet("player" + i, player, {
-        //         frameHeight: 32,
-        //         frameWidth: 64
-        //     })
-        // }
-
-        this.load.on("progress", (percent)=>{
+        this.load.on("progress", (percent: number)=>{
             loadingBar.fillRect(0, this.game.renderer.height / 2, this.game.renderer.width * percent, 50);
             console.log(percent);
         })
 
+        this.load.on("load", (file: Phaser.Loader.File)=>{
+            console.log(file.src)
+        })
+
         this.load.on("complete", ()=>{
-            this.scene.start(CST.SCENES.MENU, "Hi, hello! Didja get it?");
+            console.log("READY!")
+            this.scene.start(CST.SCENES.MENU);
         })
     }
     create(){
