@@ -1,3 +1,5 @@
 # TSGame
 
-Fuck that, we're going Space Invaders now. I have hafl a week, I scrapped everything.
+Essentialy it should be an imitation of classic arcade game "Space Invaders"
+
+To move left or right, you use the corresponding arrow keys, Space to shoot
