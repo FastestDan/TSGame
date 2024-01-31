@@ -10,17 +10,23 @@
 import { RouterLink, RouterView } from 'vue-router'
   export default{
     mounted(){
-      this.store.commit("initializeStore");
+      this.$store.commit("initializeStore");
+      console.log(this.$store.state.isAuthenticated)
     }
   }
 
 </script>
 
 <style lang="scss">
+html{
+  background: black;
+}
+
 #app{
   font-family: Avenir, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background: black;
 }
 </style>

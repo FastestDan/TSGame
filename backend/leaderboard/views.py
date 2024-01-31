@@ -4,7 +4,7 @@ from rest_framework import generics, permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
-from .models import Leaderboard
+from .models import Result
 from .serializers import LeaderboardSerializer
 
 
@@ -22,10 +22,28 @@ class CreateHiScore(generics.ListCreateAPIView):
     serializer_class = LeaderboardSerializer
 
     def get_queryset(self):
-        return Leaderboard.objects.filter(user=self.request.user)
+        return Result.objects.all()
 
 
-class ReUpDestHiScore(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Leaderboard.objects.all()
+class ReUpHiScore(generics.RetrieveUpdateAPIView):
+    # permission_classes = [permissions.IsAuthenticated]
+    queryset = Result.objects.all()
     serializer_class = LeaderboardSerializer
+
+
+class GetHigh(generics.ListAPIView):
+    serializer_class = LeaderboardSerializer
+
+    def get_queryset(self):
+        return Result.objects.all()
+
+    # def get(self):
+    #     res = []
+    #     scores = Result.objects.order_by('-score')[:11]
+    #     for s in scores:
+    #         lead_dict = {
+    #             'user': s.user,
+    #             'score': s.score
+    #         }
+    #         res.append(lead_dict)
+    #     return Response({'score': res})

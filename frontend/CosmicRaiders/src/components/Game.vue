@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import PhaserGame from 'nuxtjs-phaser/phaserGame.vue'
 import { getGame } from '@/game'
 
@@ -7,10 +7,37 @@ const game = () => getGame()
 
 <template>
   <div class="game">
+    <div style="font-family:CRfont; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <PhaserGame :createGame="game" v-if="game" />
   </div>
 </template>
 
+<script>
+import axios from "axios";
+export default{
+  name: 'NewRecord',
+  data(){
+    return{
+      newHigh:{
+        user: this.$store.state.user,
+        score: 0
+      }
+    }
+  },
+  methods:{
+    addNew(){
+      axios.defaults.headers['Authorization'] = `Token ${this.$store.state.token}`;
+      const url = '/create-hi-score';
+      axios.post(url, this.newHigh).then(response =>{
+        console.log(response.data);
+        this.newHigh = {user: this.$store.state.user, score: 0};
+      }).catch(error =>{
+        console.log(error);
+      })
+    }
+  }
+}
+</script>
 <style scoped>
 .game img {
   position: absolute;

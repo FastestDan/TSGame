@@ -16,6 +16,7 @@
     "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
+    "cors": "^2.8.5",
     "nuxtjs-phaser": "^3.0.17",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"

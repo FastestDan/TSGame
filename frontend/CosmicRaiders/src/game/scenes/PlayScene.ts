@@ -194,7 +194,6 @@ export class PlayScene extends Phaser.Scene{
         alien.kill(explosion);
         this.scoreman.increaseScore();
         this.raidman.killed += 1;
-        console.log(this.scoreman.score, ' - is the score');
         if (this.raidman.hasAliveRaiders){
             this.scoreman.setWinText();
             this.assman.gameOver();
@@ -224,11 +223,12 @@ export class PlayScene extends Phaser.Scene{
 
     restart() {
         if (this.state == GameState.GameOver){
-            this.scoreman.setHighScore();
+            this.scoreman.setHighScore(this.state);
             console.log(this.scoreman.highScore, ' - is the hi-score')
             this.player.enableBody(true, this.player.x, this.player.y, true, true);
         }
         this.state = GameState.Playing;
+        this.scoreman.setHighScore(this.state);
         this.scoreman.resetLives();
         this.scoreman.hideText();
         this.raidman.reset();

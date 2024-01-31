@@ -15,18 +15,23 @@
           <small class="text-danger">{{errors.wrong_cred}}</small>
         </div>
 
-        <div class="form-group my-1">
+        <div class="form-group my-2 text-start">
           <input type="username" placeholder="Login" name="username" v-model="username">
           <small v-if="errors.username" class="text-danger">{{errors.username}}</small>
         </div>
 
-        <div class="form-group my-1">
+        <div class="form-group my-2 text-start">
           <input type="password" placeholder="Password" name="password" v-model="password">
           <small v-if="errors.password" class="text-danger">{{errors.password}}</small>
         </div>
 
-        <div class="form-group my-1 d-grid gap-2">
+        <div class="form-group my-2 d-grid gap-2">
           <button class="btn btn-primary">Login</button>
+        </div>
+        <div class="form-group my-2 d-grid gap-2">
+          <p>
+            Don't have an account? <router-link class="text-decoration-none" to="/signup">Sign Up!</router-link>
+          </p>
         </div>
       </form>
     </div>
@@ -68,13 +73,17 @@ export default {
       this.errors.password = "";
       if(this.isValid()){
         const url = '/login/';
+        // debugger;
         axios.post(url, {username: this.username, password: this.password})
             .then(response =>{
               console.log(response.data)
-              this.$store.commit('setToken', response.data.token, response.data.user_id);
+              this.$store.commit('setToken', response.data, response.data.user);
+              this.username = "";
+              this.password = "";
+              this.$router.push('/game');
             })
             .catch(error =>{
-              if(error.response.data.non_filed_errors){
+              if(error.response.data.non_field_errors){
                 this.errors.wrong_cred = error.response.data.non_field_errors.join('');
               }
               else{
