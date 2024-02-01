@@ -13,9 +13,9 @@ const game = () => getGame()
   </div>
   <div class="col-auto">
     <p>
-      <router-link class="text-decoration-none" to="/leaderboard">Leaderboards</router-link>
+      <router-link class="text-decoration-none" @click="test()" to="/leaderboard">Leaderboards</router-link>
     </p>
-    <button class="btn btn-dark" @click="killGame()">TEST(game.destroy(true, false))</button>
+<!--    <button class="btn btn-dark" @click="killGame()">TEST(game.destroy(true, false))</button>-->
     <button class="btn btn-danger" @click="logout()">
       Log Out
     </button>
@@ -49,9 +49,11 @@ export default{
       this.$store.commit("removeToken")
       this.$router.push('/login')
     },
-    killGame(){
-      game.destroy()
+    test(){
     }
+    // killGame(){
+    //   game.destroy()
+    // }
   }
 }
 </script>

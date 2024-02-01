@@ -55,6 +55,9 @@ export default {
     logout(){
       this.$store.commit("removeToken");
       this.$router.push('/login')
+    },
+    test(){
+      location.reload()
     }
     },
   mounted(){
