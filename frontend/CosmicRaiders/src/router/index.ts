@@ -13,8 +13,8 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/game',
-      name: 'game',
+      path: '/',
+      name: 'Game',
       component: GameView
     },
     {
@@ -28,6 +28,29 @@ const router = createRouter({
       component: LeaderboardView
     }
   ]
+})
+const protectedRoutes = [
+    'Game', 'leaderboard'
+]
+
+router.beforeEach((to, from, next) =>{
+  const isProtected = protectedRoutes.includes(to.name);
+  if(isProtected && !localStorage.getItem('token')) {
+    next({
+      path: '/login',
+      query: {redirect: to.fullPath}
+    })
+  }
+  else{
+    if(!isProtected && localStorage.getItem('token') && (to.name == 'login' || to.name == 'signup')){
+      next({
+        path: '/'
+      })
+    }
+    else{
+      next();
+    }
+  }
 })
 
 

@@ -1,4 +1,5 @@
 <template>
+<!--  <h3 v-if="store.state.isAuthenticated">SAS</h3>-->
   <div class="container">
     <div class="row py-4 d-flex flex-column align-items-center justify-content-center middle-content">
       <div class="col-md-12">
@@ -7,6 +8,10 @@
       <div class="col-md-12">
         <table class="table">
           <tbody>
+          <tr>
+            <td>Player</td>
+            <td>Points</td>
+          </tr>
           <tr v-for="item in scores" v-bind:key="item.id">
             <td>{{item.user}}</td>
             <td>{{item.score}}</td>
@@ -14,7 +19,14 @@
           </tbody>
         </table>
       </div>
-      <form @load="getResults"></form>
+      <div class="row">
+        <p>
+          <router-link class="text-decoration-none" to="/">Back to game</router-link>
+        </p>
+        <button class="btn btn-danger" @click="logout()">
+          Log Out
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -26,45 +38,27 @@ export default {
   data() {
     return {
       scores: [],
-      // nicks: [],
-      // ids: []
     }
   },
   methods:{
-    // fetchUserList(){
-    //   const url = '/api/auth/users'
-    //   axios.get(url).then(response =>{
-    //     // console.log(response.data)
-    //     for(const item in response.data){
-    //       this.nicks.push(response.data[item].username)
-    //       this.ids.push(response.data[item].id)
-    //     }
-    //     console.log(this.nicks)
-    //     console.log(this.ids)
-    //   })
-    // },
 
     fetchLeaderboardList(){
       axios.defaults.headers['Authorization'] = `Token ${this.$store.state.token}`;
       const url = '/gethigh';
       axios.get(url).then(response =>{
         console.log(response.data);
-        // for(const item in this.scores){
-        //   const temp = response.data[item].user
-        //   response.data[item].user = 5
-        //   console.log(response.data);
-        // }
-        console.log(response.data);
         this.scores = response.data
-        // console.log(this.scores);
       }).catch(error =>{
         console.log(error);
       })
+    },
+    logout(){
+      this.$store.commit("removeToken");
+      this.$router.push('/login')
     }
     },
   mounted(){
     this.fetchLeaderboardList();
-    // this.fetchUserList();
   }
   }
 </script>
@@ -73,4 +67,5 @@ export default {
 .middle-content{
   height: 100vh;
 }
+
 </style>

@@ -23,10 +23,11 @@ html{
 }
 
 #app{
-  font-family: Avenir, "Helvetica Neue", Arial, sans-serif;
+  font-family: CRfont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background: black;
+  color: white;
 }
 </style>

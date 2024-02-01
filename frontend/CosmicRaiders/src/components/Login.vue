@@ -6,7 +6,7 @@
 <div class="container">
   <div class="row py-4 d-flex flex-column align-items-center justify-content-center middle-content">
     <div class="col-md-8">
-      <h3 class="text-muted text-monospace">Login</h3>
+      <h3>Login</h3>
       <hr>
     </div>
     <div class="col-md-8">
@@ -80,7 +80,7 @@ export default {
               this.$store.commit('setToken', response.data, response.data.user);
               this.username = "";
               this.password = "";
-              this.$router.push('/game');
+              this.$router.push('/');
             })
             .catch(error =>{
               if(error.response.data.non_field_errors){

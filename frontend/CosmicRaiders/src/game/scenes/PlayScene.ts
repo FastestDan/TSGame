@@ -226,10 +226,10 @@ export class PlayScene extends Phaser.Scene{
             this.scoreman.setHighScore(this.state);
             console.log(this.scoreman.highScore, ' - is the hi-score')
             this.player.enableBody(true, this.player.x, this.player.y, true, true);
+            this.scoreman.resetLives();
         }
         this.state = GameState.Playing;
         this.scoreman.setHighScore(this.state);
-        this.scoreman.resetLives();
         this.scoreman.hideText();
         this.raidman.reset();
         this.assman.reset();

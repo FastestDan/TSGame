@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row py-4 d-flex flex-column align-items-center justify-content-center middle-content">
       <div class="col-md-8">
-        <h3 class="text-muted text-monospace">Sign Up</h3>
+        <h3>Sign Up</h3>
         <hr>
       </div>
       <div class="col-md-8">
@@ -65,7 +65,7 @@ export default {
       if(!this.password2){
         this.errors.password2 = "The field can't be blank";
       }
-      if(this.password && this.password2 && (this.password != this.password2)){
+      if(this.password && this.password2 && (this.password !== this.password2)){
         this.errors.password2 = "Passwords do not match";
       }
       if(this.errors.username || this.errors.password || this.errors.password2){
@@ -98,10 +98,6 @@ export default {
               }
             })
       }
-      // else{
-      //   console.log("FOOOOOOOOOL!")
-      //   console.log(this.errors)
-      // }
     }
   }
 }

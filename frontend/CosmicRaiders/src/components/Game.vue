@@ -1,6 +1,7 @@
 <script setup>
 import PhaserGame from 'nuxtjs-phaser/phaserGame.vue'
 import { getGame } from '@/game'
+import $store from '@/store/index'
 
 const game = () => getGame()
 </script>
@@ -9,6 +10,15 @@ const game = () => getGame()
   <div class="game">
     <div style="font-family:CRfont; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <PhaserGame :createGame="game" v-if="game" />
+  </div>
+  <div class="col-auto">
+    <p>
+      <router-link class="text-decoration-none" to="/leaderboard">Leaderboards</router-link>
+    </p>
+    <button class="btn btn-dark" @click="killGame()">TEST(game.destroy(true, false))</button>
+    <button class="btn btn-danger" @click="logout()">
+      Log Out
+    </button>
   </div>
 </template>
 
@@ -34,6 +44,13 @@ export default{
       }).catch(error =>{
         console.log(error);
       })
+    },
+    logout(){
+      this.$store.commit("removeToken")
+      this.$router.push('/login')
+    },
+    killGame(){
+      game.destroy()
     }
   }
 }
